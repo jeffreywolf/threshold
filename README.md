@@ -20,10 +20,10 @@ GDAL, osr, numpy
 
 Example call
 ------------
+The following examples classify each pixel of the input image as below 5 (classied as 1.0 or 1) and above 5 (classified at 0.0 or 0). The value after the -t flag represents the threshold value.
+
 If running on UNIX-like system make sure permissions are set to executable.
 `chmod u+x threshold.py`
-
-The following examples classify each pixel of the input image as below 5 (classied as 1.0 or 1) and above 5 (classified at 0.0 or 0). The value after the -t flag represents the threshold value.
 
 Then run `./threshold.py -i inputRaster.tif -o outputRaster.tif -t 5`
 
