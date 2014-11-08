@@ -31,7 +31,7 @@ If using Windows, use the following:
 
 `python meanFilter.py -i inputRaster.tif -o outputRaster.tif -t 5`
 
-Where in all cases `inputRaster.tif` is the input raster name and `outputRaster.tif` is the name for the new mean filtered raster.
+Where in all cases `inputRaster.tif` is the input raster name and `outputRaster.tif` is the name for the new thresholded raster.
 
 If the raster is multibanded, use the `-b` option to select the band to threshold.  This program processes a single band at a time. The default band is 1 (with indexing beginning at 1).
 
