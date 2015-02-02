@@ -80,6 +80,8 @@ def createGTiff(Name, Array, driver, NDV,
 	# Write array
 	DataSet.GetRasterBand(1).WriteArray(Array)
 	DataSet.GetRasterBand(1).SetNoDataValue(NDV)
+	# Close DataSet
+	DataSet = None
 	return Name
 
 
