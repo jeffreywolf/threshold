@@ -66,7 +66,7 @@ def getConfigs(configFile):
 def driver(configs, args):
 	for h in configs["height"]:
 		if args.verbose:
-			cmd = "python {} -d {} -o {} -t {} -v".format(
+			cmd = "python {} -i {} -o {} -t {} -v".format(
 				configs["path"]["threshold"],
 				configs["path"]["chm"],
 				configs["path"]["output"],
@@ -74,7 +74,7 @@ def driver(configs, args):
 			)
 			print cmd
 		else:
-			cmd = "python {} -d {} -o {} -t".format(
+			cmd = "python {} -i {} -o {} -t {}".format(
 				configs["path"]["threshold"],
 				configs["path"]["dem"],
 				configs["path"]["output"],
