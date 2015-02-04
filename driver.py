@@ -33,31 +33,31 @@ def getConfigs(configFile):
 		config.read(configFile)
 		Configs["path"] = dict(config.items("path"))
 		print Configs
-		lengths=dict(config.items("height"))
-		print lengths
-		l_str=lengths["height"]
-		print l_str
-		if ("," in l_str) and (":" in l_str):
+		height=dict(config.items("height"))
+		print height
+		h_str=height["height"]
+		print h_str
+		if ("," in h_str) and (":" in h_str):
 			raise Exception
-		elif "," in l_str:
-			l_list = l_str.split(",")
-			l_list = [float(L) for L in l_list]
-			l_list = np.array(l_list)
-		elif ":" in l_str:
-			l_range = l_str.split(":")
-			l_range = [float(L) for L in l_range]
-			if len(l_range)==2:
-				l_min, l_max = l_range[0],l_range[1] + 1
-				l_list = np.arange(l_min, l_max, 1.0)
-			elif len(l_range)==3:
-				l_min, l_max, step = l_range[0],l_range[1] + 1, l_range[2]
-				l_list = np.arange(l_min, l_max, step)
+		elif "," in h_str:
+			h_list = h_str.split(",")
+			h_list = [float(L) for L in h_list]
+			h_list = np.array(h_list)
+		elif ":" in h_str:
+			h_range = h_str.split(":")
+			h_range = [float(L) for L in h_range]
+			if len(h_range)==2:
+				h_min, h_max = h_range[0],h_range[1] + 1
+				h_list = np.arange(h_min, h_max, 1.0)
+			elif len(h_range)==3:
+				h_min, h_max, step = h_range[0],h_range[1] + 1, h_range[2]
+				h_list = np.arange(h_min, h_max, step)
 			else:
 				print "Problem with height configuration."
 				raise e
 		else:
-			l_list = np.array([float(l_str)])
-		Configs["height"] = l_list
+			h_list = np.array([float(h_str)])
+		Configs["height"] = h_list
 	except Exception as e:
 		print "Problem parsing configuration file {}. Check file.".format(configFile)
 		raise e
