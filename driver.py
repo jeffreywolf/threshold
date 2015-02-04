@@ -66,18 +66,20 @@ def getConfigs(configFile):
 def driver(configs, args):
 	for h in configs["height"]:
 		if args.verbose:
-			cmd = "python {} -i {} -o {} -t {} -v".format(
+			cmd = "python {} -i {} -o {}/threshold{}.tif -t {} -v".format(
 				configs["path"]["threshold"],
 				configs["path"]["chm"],
 				configs["path"]["output"],
+				h,
 				h
 			)
 			print cmd
 		else:
-			cmd = "python {} -i {} -o {} -t {}".format(
+			cmd = "python {} -i {} -o {}/threshold{}.tif -t {}".format(
 				configs["path"]["threshold"],
 				configs["path"]["dem"],
 				configs["path"]["output"],
+				h,
 				h
 			)
 		cmd_args = shlex.split(cmd)
