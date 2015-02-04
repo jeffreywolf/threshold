@@ -1,11 +1,8 @@
+#! /usr/bin/env python
+
 """
 Threshold image
-
-The i/o for this program is based on the following write up by EddyTheB:
-http://gis.stackexchange.com/questions/57005/python-gdal-write-new-raster\
--using-projection-from-old
 """
-
 
 import gdal
 from gdalconst import *
@@ -51,12 +48,18 @@ threshold are coded as 0 and below as 1."
 		help = "Output file name"
 	)
 
+	parser.add_argument(
+		"-v",
+		"--verbose",
+		action = "store_true",
+		help = "Print status updates while executing"
+	)
+
 	return parser.parse_args()
 
 def getGeoInfo(filename):
 	raster = gdal.Open(filename, GA_ReadOnly)
 	NDV = raster.GetRasterBand(1).GetNoDataValue()
-	print "The value for NDV is {}".format(NDV)
 	xsize = raster.GetRasterBand(1).XSize
 	ysize = raster.GetRasterBand(1).YSize
 	GeoT = raster.GetGeoTransform()
@@ -89,9 +92,10 @@ def createGTiff(Name, Array, driver, NDV,
 def main():
 	args = getArgs()
 
+	if args.verbose:
+		print args
 	raster = gdal.Open(args.input)
-	NDV, xsize, ysize, GeoT, Projection, DataType = getGeoInfo(args.input)
-
+	NDV, xsize, ysize, GeoT, Projection, DataType = getGeoInfo(args)
 
 	if args.band:
 		band = raster.GetRasterBand(args.band)
@@ -103,11 +107,10 @@ def main():
 	output_array = np.zeros(array.shape, array.dtype)
 	output_array[array == NDV] = np.nan
 
-	print NDV
-	print array[array!=NDV]
-
 	output_array[array!=NDV] = array[array!=NDV] <= float(args.threshold)
-	print output_array
+
+	if args.verbose:
+		print output_array
 	driver = gdal.GetDriverByName('GTiff')
 	new_filename = createGTiff(args.output, output_array, driver, NDV, 
 								xsize, ysize, GeoT, Projection, DataType)
