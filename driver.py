@@ -63,7 +63,7 @@ def getConfigs(configFile):
 		raise e
 	return Configs
 
-def driver(configs, args):
+def threshold(configs, args):
 	for h in configs["height"]:
 		if args.verbose:
 			cmd = "python {} -i {} -o {}/threshold{}.tif -t {} -v".format(
@@ -93,11 +93,43 @@ def driver(configs, args):
 			print stdout, stderr
 	return True
 
+def polygons(configs, args):
+	for h in configs["height"]:
+		if args.verbose:
+			cmd = "python {} -i {}/threshold{}.tif -o {}/threshold{}.shp -v".format(
+				configs["path"]["polygons"],
+				configs["path"]["output"],
+				h,
+				configs["path"]["output"],
+				h
+			)
+			print cmd
+		else:
+			cmd = "python {} -i {}/threshold{}.tif -o {}/threshold{}.shp".format(
+				configs["path"]["polygons"],
+				configs["path"]["output"],
+				h,
+				configs["path"]["output"],
+				h
+			)
+		cmd_args = shlex.split(cmd)
+		stdout,stderr = sp.Popen(
+			cmd_args,
+			stdin = sp.PIPE,
+			stdout = sp.PIPE,
+			stderr = sp.PIPE
+		).communicate()
+		if args.verbose:
+			print stdout, stderr
+	return True
+
+
 def main():
 	t_i = time.time()
 	args = getArgs()
 	configs = getConfigs(args.config)
-	driver(configs, args)
+	threshold(configs, args)
+	polygons(configs, args)
 	t_f = time.time()
 	if args.verbose:
 		print "Total elapsed time was {} minutes".format((t_f-t_i)/60.)
