@@ -96,7 +96,7 @@ def main():
 	if args.verbose:
 		print args
 	raster = gdal.Open(args.input)
-	NDV, xsize, ysize, GeoT, Projection, DataType = getGeoInfo(args)
+	NDV, xsize, ysize, GeoT, Projection, DataType = getGeoInfo(args.input)
 
 	if args.band:
 		band = raster.GetRasterBand(args.band)
