@@ -1,4 +1,6 @@
 #! /usr/bin/env python
+
+
 """
 Driver for threshold.py
 """
@@ -72,7 +74,7 @@ def driver(configs, args):
 			)
 			print cmd
 		else:
-			cmd = "python {} -d {} -o {}".format(
+			cmd = "python {} -d {} -o {} -t".format(
 				configs["path"]["threshold"],
 				configs["path"]["dem"],
 				configs["path"]["output"],
