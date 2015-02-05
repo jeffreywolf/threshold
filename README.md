@@ -9,7 +9,10 @@ An input raster in GeoTiff format (*.tif).
 
 Output
 -------------
-An output file in GeoTiff format (*.tif).
+###### threshold.py
+A classified raster in GeoTiff format (*.tif).
+###### polygons.py
+An polygon representation of the classified raster in shapefile format (*.shp).
 
 Dependencies
 --------------
