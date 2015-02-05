@@ -7,6 +7,7 @@ Driver for threshold.py
 import argparse, ConfigParser, shlex, time, os
 import subprocess as sp
 import numpy as np
+import multiprocessing as mp
 
 def getArgs():
 	parser = argparse.ArgumentParser(
@@ -93,36 +94,39 @@ def threshold(configs, args):
 			print stdout, stderr
 	return True
 
-def polygons(configs, args):
-	for h in configs["height"]:
-		if args.verbose:
-			cmd = "python {} -i {}/threshold{}.tif -o {}/threshold{}.shp -v".format(
-				configs["path"]["polygons"],
-				configs["path"]["output"],
-				h,
-				configs["path"]["output"],
-				h
-			)
-			print cmd
-		else:
-			cmd = "python {} -i {}/threshold{}.tif -o {}/threshold{}.shp".format(
-				configs["path"]["polygons"],
-				configs["path"]["output"],
-				h,
-				configs["path"]["output"],
-				h
-			)
-		cmd_args = shlex.split(cmd)
-		stdout,stderr = sp.Popen(
-			cmd_args,
-			stdin = sp.PIPE,
-			stdout = sp.PIPE,
-			stderr = sp.PIPE
-		).communicate()
-		if args.verbose:
-			print stdout, stderr
+def map_func(h, configs, args):
+	"""Polygons command line in parallel.
+	"""
+	if args.verbose:
+		cmd = "python {} -i {}/threshold{}.tif -o {}/threshold{}.shp -v".format(
+			configs["path"]["polygons"],
+			configs["path"]["output"],
+			h,
+			configs["path"]["output"],
+			h
+		)
+		print cmd
+	else:
+		cmd = "python {} -i {}/threshold{}.tif -o {}/threshold{}.shp".format(
+			configs["path"]["polygons"],
+			configs["path"]["output"],
+			h,
+			configs["path"]["output"],
+			h
+		)
+	cmd_args = shlex.split(cmd)
+	stdout,stderr = sp.Popen(
+		cmd_args,
+		stdin = sp.PIPE,
+		stdout = sp.PIPE,
+		stderr = sp.PIPE
+	).communicate()
+	if args.verbose:
+		print stdout, stderr
 	return True
 
+def map_star_func(a_b):
+	return map_func(*a_b)
 
 def main():
 	t_i = time.time()
@@ -130,6 +134,18 @@ def main():
 	configs = getConfigs(args.config)
 	threshold(configs, args)
 	polygons(configs, args)
+
+	cores = mp.cpu_count()
+	pool = mp.Pool(processes = cores)
+	pool.map(
+		map_star_func,
+		itertools.izip(
+			configs["height"],
+			itertools.repeat(configs),
+			itertools.repeat(args)
+		)
+	)
+
 	t_f = time.time()
 	if args.verbose:
 		print "Total elapsed time was {} minutes".format((t_f-t_i)/60.)
