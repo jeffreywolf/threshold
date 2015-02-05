@@ -55,7 +55,7 @@ If using Windows, use the following:
 
 
 ##### Batch Mode
-The script driver.py 1) provides batch like functionality to perform classification at a seires of value thresholds and 2) serves as a pipeline to both threshold and convert from raster to vector. 
+The script driver.py 1) provides batch like functionality to perform classification at a series of value thresholds and 2) serves as a pipeline to both threshold and convert from raster to vector. 
 
 The example driver.cfg file will classify the chm_test.tif at all height thresholds between 2.0 m and 35.0 m using a step size of 1.0 (default). The output will be a series of files with the prefix threshold.
 
