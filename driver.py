@@ -77,7 +77,7 @@ def threshold(configs, args):
 		else:
 			cmd = "python {} -i {} -o {}/threshold{}.tif -t {}".format(
 				configs["path"]["threshold"],
-				configs["path"]["dem"],
+				configs["path"]["chm"],
 				configs["path"]["output"],
 				h,
 				h
