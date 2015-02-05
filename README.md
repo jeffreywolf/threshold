@@ -5,11 +5,11 @@ Classify each pixel of an image as above or below a specified threshold value th
 
 Input
 -------------
-An input raster in GeoTiff format (*.tif)
+An input raster in GeoTiff format (*.tif).
 
 Output
 -------------
-An output file in geoTiff format (will have .tif extension).
+An output file in GeoTiff format (*.tif).
 
 Dependencies
 --------------
@@ -18,7 +18,7 @@ Dependencies
 
 Examples
 ------------
-There are two steps: 1) run threshold the an image with "threshold.py" and 2) convert the raster to a vector representation with "polygons.py".  The two steps can be run as a pipeline using the driver ("driver.py"). 
+There are two steps: 1) threshold an image with "threshold.py" and 2) convert the thresholded raster to a vector representation with "polygons.py". The two steps can be run as a pipeline using the driver ("driver.py"). 
 
 _For the purpose of these examples, create a folder called output in the threshold directory._
 
