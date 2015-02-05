@@ -4,7 +4,7 @@
 """
 Driver for threshold.py
 """
-import argparse, ConfigParser, shlex, time, os
+import argparse, ConfigParser, shlex, time, os, itertools
 import subprocess as sp
 import numpy as np
 import multiprocessing as mp
@@ -133,7 +133,6 @@ def main():
 	args = getArgs()
 	configs = getConfigs(args.config)
 	threshold(configs, args)
-	polygons(configs, args)
 
 	cores = mp.cpu_count()
 	pool = mp.Pool(processes = cores)
