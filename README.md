@@ -74,6 +74,6 @@ If using Windows, use the following:
 
 
 ##### Notes
-The PostGIS shapefile loader shp2pgsql may have problems with loading files that contain decimals points in the name other than the file extension separation. Therefore, it is best not to use numbers with decimal points in the file name.
+The PostGIS shapefile loader shp2pgsql may have problems with loading files that contain decimal points (e.g. "threshold15.0.shp") other than the file extension separation. Therefore, it is best not to use numbers with decimal points in the file name (e.g. "threshold15.shp").
 
 
