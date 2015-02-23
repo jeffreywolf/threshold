@@ -31,11 +31,11 @@ The following examples classify each pixel of a canopy height model (with units 
 If running on UNIX-like system make sure permissions are set to executable.
 `chmod u+x threshold.py`
 
-Then run `./threshold.py -i chm_test.tif -o output/threshold15.0.tif -t 15.0 -v`
+Then run `./threshold.py -i chm_test.tif -o output/threshold15.tif -t 15.0 -v`
 
 If using Windows, use the following:
 
-`python threshold.py -i chm_test.tif -o output/threshold15.0.tif -t 15.0 -v`
+`python threshold.py -i chm_test.tif -o output/threshold15.tif -t 15.0 -v`
 
 
 ##### Raster to Vector
@@ -47,11 +47,12 @@ If running on UNIX-like system make sure permissions are set to executable.
 
 Then run 
 
-`./polygons.py -i output/threshold15.0.tif -o output/threshold15.0.shp -v`
+`./polygons.py -i output/threshold15.tif -o output/threshold15.shp -v`
 
 If using Windows, use the following:
 
-`python polygon.py -i output/threshold15.0.tif -o output/threshold15.0.shp -v`
+`python polygon.py -i output/threshold15.tif -o output/threshold15.shp -v`
+
 
 
 ##### Batch Mode
@@ -71,5 +72,8 @@ If using Windows, use the following:
 
 `python driver.py -c driver.cfg -v`
 
+
+##### Notes
+The PostGIS shapefile loader shp2pgsql may have problems with loading files that contain decimals points in the name other than the file extension separation. Therefore, it is best not to use numbers with decimal points in the file name.
 
 
