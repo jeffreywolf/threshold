@@ -42,22 +42,22 @@ def getConfigs(configFile):
 			raise Exception
 		elif "," in h_str:
 			h_list = h_str.split(",")
-			h_list = [float(L) for L in h_list]
+			h_list = [int(L) for L in h_list]
 			h_list = np.array(h_list)
 		elif ":" in h_str:
 			h_range = h_str.split(":")
-			h_range = [float(L) for L in h_range]
+			h_range = [int(L) for L in h_range]
 			if len(h_range)==2:
 				h_min, h_max = h_range[0],h_range[1] + 1
-				h_list = np.arange(h_min, h_max, 1.0)
+				h_list = range(h_min, h_max)
 			elif len(h_range)==3:
 				h_min, h_max, step = h_range[0],h_range[1] + 1, h_range[2]
-				h_list = np.arange(h_min, h_max, step)
+				h_list = range(h_min, h_max, step)
 			else:
 				print "Problem with height configuration."
 				raise e
 		else:
-			h_list = np.array([float(h_str)])
+			h_list = np.array([int(h_str)])
 		Configs["height"] = h_list
 	except Exception as e:
 		print "Problem parsing configuration file {}. Check file.".format(configFile)
